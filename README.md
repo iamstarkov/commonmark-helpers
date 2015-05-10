@@ -182,16 +182,16 @@ Type: `walker event`
 MIT © [Vladimir Starkov](https://iamstarkov.com/)
 
 [npm-url]: https://npmjs.org/package/commonmark-helpers
-[npm-image]: //img.shields.io/npm/v/commonmark-helpers.svg
+[npm-image]: https://img.shields.io/npm/v/commonmark-helpers.svg
 
 [travis-url]: https://travis-ci.org/iamstarkov/commonmark-helpers
-[travis-image]: //img.shields.io/travis/iamstarkov/commonmark-helpers.svg
+[travis-image]: https://img.shields.io/travis/iamstarkov/commonmark-helpers.svg
 
 [coveralls-url]: https://coveralls.io/r/iamstarkov/commonmark-helpers
-[coveralls-image]: //img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg
+[coveralls-image]: https://img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg
 
 [depstat-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-image]: //david-dm.org/iamstarkov/commonmark-helpers.svg
+[depstat-image]: https://david-dm.org/iamstarkov/commonmark-helpers.svg
 
 [depstat-dev-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-dev-image]: //david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg
+[depstat-dev-image]: https://david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg
