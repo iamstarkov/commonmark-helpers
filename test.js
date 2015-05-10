@@ -31,7 +31,7 @@ it('node isHeader matcher', ()=> {
 });
 
 it('node isHeader lvl 2 matcher', ()=> {
-  equal(md.text(md.match(input, (event)=> isHeader(event) && md.isLevel(event, 2))), 'title 2');
+  equal(md.text(md.match(input, (event)=> md.isLevel(event, 2))), 'title 2');
 });
 
 it('node isParagraph matcher', ()=> {
