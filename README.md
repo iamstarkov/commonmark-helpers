@@ -22,12 +22,32 @@ npm install --save commonmark-helpers
 
 ```
 var md = require('commonmark-helpers');
-var input = '*bold*';
-md.html(input); // <p><b>bold</b></p>\n
-md.text(input); // bold
-```
+var input = [
+  '# title',
+  '## title 2',
+  'paragraph',
+  '![](imgsrc)',
+  '> BlockQuote'
+].join('\n\n');
 
-For more usage examples see [tests][test.js].
+// helpers above commonmark API
+function isHeader(event) { return event.entering && md.isHeader(event) };
+function isParagraph(event) { return event.entering && md.isParagraph(event) };
+function isBlockQuote(event) { return event.entering && md.isBlockQuote(event) };
+function isImage(event) { return event.entering && md.isImage(event) };
+
+md.html(`*italic*`);        // <p><em>italic</em></p>\n
+md.text('**`plaintext`**'); // plaintext
+
+function custom(event) { return event.entering && event.node.type === 'Header'; }
+md.text(md.match(input, custom));   // title
+md.text(md.match(input, isHeader)); // title
+
+md.text(md.match(input, (event)=> md.isLevel(event, 2)));  // title 2
+md.text(md.match(input, isParagraph));  // paragraph
+md.text(md.match(input, isBlockQuote)); // BlockQuote
+md.match(input, isImage).destination;   // imgsrc
+```
 
 ## API
 
