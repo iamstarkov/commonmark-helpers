@@ -8,7 +8,11 @@
 
 > Even the strongest sometimes need help.
 
-Bunch of helpers for working with [commonmark][commonmark-readme]. Also, you can be interested, why I created this module, that’s why I wrote a [post about reasons](https://iamstarkov.com/commonmark-helpers-release/).
+Basically, with commonmark-helpers you can find desire elements in markdown document
+and process them in html or plaintext format.
+
+Bunch of helpers for working with [commonmark][commonmark-readme]. Also, you can be interested,
+why I created this module, that’s why I wrote a [post about reasons](https://iamstarkov.com/commonmark-helpers-release/).
 
 Very important to notice, that this package is very simple and doesn’t contain
 any smart and/or complicated logic, that’s why it’s tightly coupled with
@@ -92,7 +96,8 @@ Type: `string` / `AST node`
 
 Type: `function`
 
-Matcher receive one `event` parameter. It is result of `walker.next()`. See [commonmark’s documentation and usage examples][commonmark].
+Matcher receive one `event` parameter. It is result of `walker.next()`.
+See [commonmark’s documentation and usage examples][commonmark].
 
 [commonmark]: https://github.com/jgm/commonmark.js#usage
 
@@ -177,16 +182,16 @@ Type: `walker event`
 MIT © [Vladimir Starkov](https://iamstarkov.com/)
 
 [npm-url]: https://npmjs.org/package/commonmark-helpers
-[npm-image]: http://img.shields.io/npm/v/commonmark-helpers.svg
+[npm-image]: //img.shields.io/npm/v/commonmark-helpers.svg
 
 [travis-url]: https://travis-ci.org/iamstarkov/commonmark-helpers
-[travis-image]: http://img.shields.io/travis/iamstarkov/commonmark-helpers.svg
+[travis-image]: //img.shields.io/travis/iamstarkov/commonmark-helpers.svg
 
 [coveralls-url]: https://coveralls.io/r/iamstarkov/commonmark-helpers
-[coveralls-image]: http://img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg
+[coveralls-image]: //img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg
 
 [depstat-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-image]: https://david-dm.org/iamstarkov/commonmark-helpers.svg
+[depstat-image]: //david-dm.org/iamstarkov/commonmark-helpers.svg
 
 [depstat-dev-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-dev-image]: https://david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg
+[depstat-dev-image]: //david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg
