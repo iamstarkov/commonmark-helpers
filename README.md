@@ -8,7 +8,11 @@
 
 > Even the strongest sometimes need help.
 
-Bunch of helpers for working with [commonmark][commonmark-readme].
+Bunch of helpers for working with [commonmark][commonmark-readme]. Also, you can be interested, why I created this module, that’s why I wrote a [post about reasons](https://iamstarkov.com/commonmark-helpers-release/).
+
+Very important to notice, that this package is very simple and doesn’t contain
+any smart and/or complicated logic, that’s why it’s tightly coupled with
+[commonmark API for AST tree][commonmark-readme]. Check it out first.
 
 [commonmark-readme]: https://github.com/jgm/commonmark.js#readme
 
