@@ -33,14 +33,14 @@ const literal = (event) => event.node.literal;
 const isType = (event, type) => event.node.type === type;
 
 export default {
-  html: html,
-  text: text,
-  ast: ast,
-  match: match,
+  html,
+  text,
+  ast,
+  match,
 
-  literal: literal,
+  literal,
   isLevel: (event, level) => event.node.level === level,
-  isType: isType,
+  isType,
 
   isDocument: (event) => isType(event, 'Document'),
   isHeader: (event) => isType(event, 'Header'),
