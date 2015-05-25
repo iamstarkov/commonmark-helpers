@@ -32,16 +32,11 @@ const match = (input, matcher) => {
 
 const literal = (event) => event.node.literal;
 const isType = (event, type) => event.node.type === type;
+const isLevel = (event, level) => event.node.level === level;
 
 export default {
-  html,
-  text,
-  ast,
-  match,
-
-  literal,
-  isLevel: (event, level) => event.node.level === level,
-  isType,
+  html, text, ast, match,
+  literal, isLevel, isType,
 
   isDocument: (event) => isType(event, 'Document'),
   isHeader: (event) => isType(event, 'Header'),
