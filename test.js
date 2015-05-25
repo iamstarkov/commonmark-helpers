@@ -34,8 +34,8 @@ it('node isHeader lvl 2 matcher', ()=> {
   equal(md.text(md.match(input, (event)=> md.isLevel(event, 2))), 'title 2');
 });
 
-it('should not fail and return empty string', ()=> {
-  equal(md.text(md.match(input, (event)=> md.isLevel(event, 3))), '');
+it('ast, html, text and match should not fail and return undefined if nothing matched', ()=> {
+  equal(md.text(md.match(input, (event)=> md.isLevel(event, 3))), undefined);
 });
 
 it('node isParagraph matcher', ()=> {

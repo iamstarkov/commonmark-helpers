@@ -7,10 +7,13 @@ const ast = (input) =>
     ? new commonmark.Parser().parse(input)
     : input;
 
-const html = (input)=>
-  new commonmark.HtmlRenderer().render(ast(input));
+const html = (input)=> {
+  if (!input) { return; }
+  return new commonmark.HtmlRenderer().render(ast(input));
+}
 
 const text = (input)=> {
+  if (!input) { return; }
   let res = '';
   match(input, (event)=> {
     res += isString(literal(event)) ? literal(event) : '';
