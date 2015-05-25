@@ -1,6 +1,6 @@
 {
   "name": "commonmark-helpers",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Helper methods for commonmark",
   "main": "index.es5.js",
   "scripts": {
