@@ -19,6 +19,7 @@ const text = (input)=> {
 }
 
 const match = (input, matcher) => {
+  if (!input) return;
   var walker = ast(input).walker();
   var event, node;
   while (event = walker.next()) {
