@@ -18,7 +18,23 @@ it('html', ()=> {
 });
 
 it('text', ()=> {
-  equal(md.text('**`plaintext`**'), 'plaintext');
+  equal(md.text('**`plaintext`** watsup'), 'plaintext watsup');
+});
+
+it('multiline text', ()=> {
+  var input = `
+    YOLO
+    md ftw
+  `;
+  equal(md.text(input), 'YOLO\nmd ftw\n');
+});
+
+it.skip('multiline text with tags', ()=> {
+  var input = `
+    **YOLO**
+    md ftw
+  `;
+  equal(md.text(input), 'YOLO\nmd ftw\n');
 });
 
 it('node matcher', ()=> {
