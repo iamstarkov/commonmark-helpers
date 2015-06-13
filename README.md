@@ -28,36 +28,38 @@ npm install --save commonmark-helpers
 
 ## Usage
 
-```
+```js
 var md = require('commonmark-helpers');
-var input = [
-  '# title',
-  '## title 2',
-  'paragraph',
-  '![](imgsrc)',
-  '> BlockQuote'
-].join('\n\n');
+var input = `
+# title
 
-// helpers above commonmark API
-function isHeader(event) { return event.entering && md.isHeader(event) };
-function isParagraph(event) { return event.entering && md.isParagraph(event) };
-function isBlockQuote(event) { return event.entering && md.isBlockQuote(event) };
-function isImage(event) { return event.entering && md.isImage(event) };
+## title 2
+
+paragraph
+
+`;
 
 md.html(`*italic*`);        // <p><em>italic</em></p>\n
 md.text('**`plaintext`**'); // plaintext
 
-function custom(event) { return event.entering && event.node.type === 'Header'; }
-md.text(md.match(input, custom));   // title
-md.text(md.match(input, isHeader)); // title
+var matchHeadingLevel2 = function(event) {
+  var node = md.node(event);
+  return event.entering && md.isHeader(node) && md.isLevel(node, 2);
+};
 
-md.text(md.match(input, (event)=> md.isLevel(event, 2)));  // title 2
-md.text(md.match(input, isParagraph));  // paragraph
-md.text(md.match(input, isBlockQuote)); // BlockQuote
-md.match(input, isImage).destination;   // imgsrc
+md.text(md.match(input, matchHeadingLevel2)) // title 2
+
 ```
 
 ## API
+
+### node(event)
+
+Return `event.node`. Regular AST node.
+
+##### event
+
+Type: `walker event`
 
 ### html(input)
 
@@ -101,81 +103,33 @@ See [commonmark’s documentation and usage examples][commonmark].
 
 [commonmark]: https://github.com/jgm/commonmark.js#usage
 
+### Bunch of shortcut helpers
 
-### node(event)
+```js
+const isType = (node, type) => node.type === type;
+const isLevel  = (node, level) => node.level === level;
+const isText = node => isType(node, 'Text');
+const isEmph = node => isType(node, 'Emph');
+const isCode = node => isType(node, 'Code');
+const isHtml = node => isType(node, 'Html');
+const isLink = node => isType(node, 'Link');
+const isItem = node => isType(node, 'Item');
+const isList = node => isType(node, 'List');
+const isImage = node => isType(node, 'Image');
+const isStrong = node => isType(node, 'Strong');
+const isHeader = node => isType(node, 'Header');
+const isDocument = node => isType(node, 'Document');
+const isCodeBlock = node => isType(node, 'CodeBlock');
+const isHtmlBlock = node => isType(node, 'HtmlBlock');
+const isSoftbreak = node => isType(node, 'Softbreak');
+const isHardbreak = node => isType(node, 'Hardbreak');
+const isParagraph = node => isType(node, 'Paragraph');
+const isBlockQuote = node => isType(node, 'BlockQuote');
+const isHorizontalRule = node => isType(node, 'HorizontalRule');
 
-Return `event.node`. Regular AST node.
-
-##### event
-
-Type: `walker event`
-
-### isLevel(event, level)
-
-Return `true` if AST node will have desire value of `level` property; suitable only for headers.
-
-##### event
-
-Type: `walker event`
-
-##### level
-
-Type: `Number`
-
-Desire header’s level, from 1 to 6.
-
-### isType(event, type)
-
-##### event
-
-Type: `walker event`
-
-##### type
-
-Desire AST node’s type, can be one of this list: `Text`, `Softbreak`, `Hardbreak`, `Emph`, `Strong`, `Html`, `Link`, `Image`, `Code`, `Document`, `Paragraph`, `BlockQuote`, `Item`, `List`, `Header`, `CodeBlock`, `HtmlBlock`, `HorizontalRule`.
-
-### isDocument(event)
-
-Shortcut to isType, with type 'Document'.
-
-##### event
-
-Type: `walker event`
-
-### isHeader(event)
-
-Shortcut to isType, with type 'Header'.
-
-##### event
-
-Type: `walker event`
-
-### isParagraph(event)
-
-Shortcut to isType, with type 'Paragraph'.
-
-##### event
-
-Type: `walker event`
-
-### isBlockQuote(event)
-
-Shortcut to isType, with type 'BlockQuote'.
-
-##### event
-
-Type: `walker event`
-
-### isImage(event)
-
-Shortcut to isType, with type 'Image'.
-
-##### event
-
-Type: `walker event`
-
-
-
+const isRoot  = node => node.parent && isDocument(node.parent);
+const isBreak = node => isHardbreak(node) || isSoftbreak(node);
+```
 
 ## License
 
