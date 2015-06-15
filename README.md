@@ -101,6 +101,22 @@ Type: `function`
 Matcher receive one `event` parameter. It is result of `walker.next()`.
 See [commonmark’s documentation and usage examples][commonmark].
 
+
+### matchRemove(input, matcher)
+
+Return first AST node matched my matcher function in process of walking through AST tree. Returns undefined if no one AST node was matched. One of the most powerful method in this collection.
+
+##### input
+
+Type: `string` / `AST node`
+
+##### matcher
+
+Type: `function`
+
+Matcher receive one `event` parameter. It is result of `walker.next()`.
+See [commonmark’s documentation and usage examples][commonmark].
+
 [commonmark]: https://github.com/jgm/commonmark.js#usage
 
 ### Bunch of shortcut helpers

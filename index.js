@@ -18,6 +18,17 @@ const match = (input, matcher) => {
   }
 }
 
+const matchRemove = (input, matcher) => {
+  if (!input) return;
+  var tree = ast(input);
+  var walker = tree.walker();
+  var event;
+  while (event = walker.next()) {
+    if (matcher(event)) { event.node.unlink(); }
+  }
+  return tree;
+}
+
 const html = (input) => {
   if (!input) return;
   return new commonmark.HtmlRenderer().render(ast(input));
@@ -64,7 +75,7 @@ const isBreak = node => isHardbreak(node) || isSoftbreak(node);
 
 export default {
   // helpers
-  node, ast, match, html, text,
+  node, ast, match, matchRemove, html, text,
 
   // shortcuts
   isType, isText, isEmph, isCode, isHtml, isLink, isItem, isList, isImage,

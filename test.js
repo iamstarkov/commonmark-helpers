@@ -1,3 +1,4 @@
+import commonmark from 'commonmark';
 import md from './index';
 import { equal, deepEqual } from 'assert';
 
@@ -54,7 +55,8 @@ it('html', ()=> {
 });
 
 it('text', ()=> {
-  equal(md.text(input), `title
+  equal(md.text(input), `
+title
 
 title 2
 
@@ -62,5 +64,11 @@ paragraph
 
 BlockQuote
 
-BlockQuote italic`);
+BlockQuote italic
+  `.trim());
+});
+
+it('matchRemove', ()=> {
+  const trigger = event => event.entering && md.isHeader(event.node);
+  equal(md.html(md.matchRemove(`# asd\n\ntext`, trigger)), `<p>text</p>\n`);
 });
