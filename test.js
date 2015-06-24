@@ -1,5 +1,6 @@
-import commonmark from 'commonmark';
-import md from './index';
+import {
+  text, html, match, matchRemove,
+  isHeader, isLevel, isParagraph, isBlockQuote, isImage } from './index';
 import { equal, deepEqual } from 'assert';
 
 const input = `
@@ -17,45 +18,39 @@ paragraph
 `;
 
 it('node matcher', ()=> {
-  const trigger = event => event.entering && event.node.type === 'Header';
-  equal(md.text(md.match(input, trigger)), 'title');
+  equal(text(match(input, node => node.type === 'Header')), 'title');
 });
 
 it('node isHeader matcher', ()=> {
-  const trigger = (event)=> event.entering && md.isHeader(md.node(event));
-  equal(md.text(md.match(input, trigger)), 'title');
+  equal(text(match(input, isHeader)), 'title');
 });
 
 it('node isHeader lvl 2 matcher', ()=> {
-  const trigger = (event)=> event.entering && md.isHeader(md.node(event)) && md.isLevel(md.node(event), 2);
-  equal(md.text(md.match(input, trigger)), 'title 2');
+  equal(text(match(input, node => isLevel(node, 2))), 'title 2');
 });
 
 it('ast, html, text and match should not fail and return undefined if nothing matched', ()=> {
-  equal(md.text(md.match(input, (event)=> md.isLevel(event, 3))), undefined);
+  equal(text(match(input, node => isLevel(node, 3))), undefined);
 });
 
 it('node isParagraph matcher', ()=> {
-  const trigger = (event)=> event.entering && md.isParagraph(md.node(event));
-  equal(md.text(md.match(input, trigger)), 'paragraph');
+  equal(text(match(input, isParagraph)), 'paragraph');
 });
 
 it('node isBlockQuote matcher', ()=> {
-  const trigger = (event)=> event.entering && md.isBlockQuote(md.node(event));
-  equal(md.text(md.match(input, trigger)), 'BlockQuote');
+  equal(text(match(input, isBlockQuote)), 'BlockQuote');
 });
 
 it('node isImage matcher', ()=> {
-  const trigger = (event)=> event.entering && md.isImage(md.node(event));
-  equal(md.match(input, trigger).destination, 'imgsrc');
+  equal(match(input, isImage).destination, 'imgsrc');
 });
 
 it('html', ()=> {
-  equal(md.html('**awsm**'), '<p><strong>awsm</strong></p>\n');
+  equal(html('**awsm**'), '<p><strong>awsm</strong></p>\n');
 });
 
 it('text', ()=> {
-  equal(md.text(input), `
+  equal(text(input), `
 title
 
 title 2
@@ -69,6 +64,5 @@ BlockQuote italic
 });
 
 it('matchRemove', ()=> {
-  const trigger = event => event.entering && md.isHeader(event.node);
-  equal(md.html(md.matchRemove(`# asd\n\ntext`, trigger)), `<p>text</p>\n`);
+  equal(html(matchRemove(`# asd\n\ntext`, isHeader)), `<p>text</p>\n`);
 });

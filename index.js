@@ -1,8 +1,5 @@
 import commonmark from 'commonmark';
 
-// basic
-const node = event => event.node;
-
 const ast = (input) => {
   return (typeof input === 'string')
     ? new commonmark.Parser().parse(input)
@@ -14,7 +11,7 @@ const match = (input, matcher) => {
   var walker = ast(input).walker();
   var event;
   while (event = walker.next()) {
-    if (matcher(event)) { return node(event); }
+    if (matcher(event.node, event)) { return event.node; }
   }
 }
 
@@ -24,7 +21,7 @@ const matchRemove = (input, matcher) => {
   var walker = tree.walker();
   var event;
   while (event = walker.next()) {
-    if (matcher(event)) { event.node.unlink(); }
+    if (matcher(event.node, event)) { event.node.unlink(); }
   }
   return tree;
 }
@@ -37,9 +34,9 @@ const html = (input) => {
 const text = (input) => {
   if (!input) return;
   let res = '';
-  match(input, (event) => {
-    res += (isRoot(node(event)) && event.entering && res !== '') ? '\n\n' : '';
-    res += isBreak(node(event)) ? '\n' : (node(event).literal || '');
+  match(input, (node, event) => {
+    res += (isRoot(node) && event.entering && res !== '') ? '\n\n' : '';
+    res += isBreak(node) ? '\n' : (node.literal || '');
   });
   return res.replace(/\n{2,}/gim, '\n\n');
 }
@@ -47,7 +44,7 @@ const text = (input) => {
 // shortcuts
 /* istanbul ignore if */
 const isType = (node, type) => node.type === type;
-const isLevel  = (node, level) => node.level === level;
+const isLevel = (node, level) => node.level === level;
 const isText = node => isType(node, 'Text');
 const isEmph = node => isType(node, 'Emph');
 const isCode = node => isType(node, 'Code');
@@ -75,7 +72,7 @@ const isBreak = node => isHardbreak(node) || isSoftbreak(node);
 
 export default {
   // helpers
-  node, ast, match, matchRemove, html, text,
+  ast, match, matchRemove, html, text,
 
   // shortcuts
   isType, isText, isEmph, isCode, isHtml, isLink, isItem, isList, isImage,
