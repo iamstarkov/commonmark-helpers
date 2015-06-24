@@ -30,36 +30,16 @@ npm install --save commonmark-helpers
 
 ```js
 var md = require('commonmark-helpers');
-var input = `
-# title
 
-## title 2
-
-paragraph
-
-`;
-
+md.text(md.match('# title\n\ntext', md.isHeader)); // title
 md.html(`*italic*`);        // <p><em>italic</em></p>\n
 md.text('**`plaintext`**'); // plaintext
-
-var matchHeadingLevel2 = function(event) {
-  var node = md.node(event);
-  return event.entering && md.isHeader(node) && md.isLevel(node, 2);
-};
-
-md.text(md.match(input, matchHeadingLevel2)) // title 2
-
 ```
 
+[Look into tests for more examples](tests).
+
+[tests]: https://github.com/iamstarkov/commonmark-helpers/blob/master/test.js
 ## API
-
-### node(event)
-
-Return `event.node`. Regular AST node.
-
-##### event
-
-Type: `walker event`
 
 ### html(input)
 
@@ -67,8 +47,7 @@ Return html.
 
 ##### input
 
-Type: `string` / `AST node`
-
+Type: `string` / `AST`
 
 ### text(input)
 
@@ -76,7 +55,7 @@ Return plain text.
 
 ##### input
 
-Type: `string` / `AST node`
+Type: `string` / `AST`
 
 ### ast(input)
 
@@ -88,34 +67,46 @@ Type: `string`
 
 ### match(input, matcher)
 
-Return first AST node matched my matcher function in process of walking through AST tree. Returns undefined if no one AST node was matched. One of the most powerful method in this collection.
+Return first `AST-node` matched my _matcher_ in process of walking through `AST-tree`. Returns `undefined` if no one AST-node have been matched.  
+**The most powerful method in this collection.**
 
 ##### input
 
-Type: `string` / `AST node`
+Type: `string` / `AST`
 
 ##### matcher
 
-Type: `function`
+Type: `function`. Receive: `AST-node, event`
 
-Matcher receive one `event` parameter. It is result of `walker.next()`.
-See [commonmark’s documentation and usage examples][commonmark].
-
+In most cases you need only `AST-node` to match on.
 
 ### matchRemove(input, matcher)
 
-Return first AST node matched my matcher function in process of walking through AST tree. Returns undefined if no one AST node was matched. One of the most powerful method in this collection.
+The same as `match()` but remove first matched AST-node and return AST-tree without it.
 
 ##### input
 
-Type: `string` / `AST node`
+Type: `string` / `AST`
 
 ##### matcher
 
-Type: `function`
+Type: `function`. Receive: `AST-node, event`
 
-Matcher receive one `event` parameter. It is result of `walker.next()`.
-See [commonmark’s documentation and usage examples][commonmark].
+In most cases you need only `AST-node` to match on.
+
+### matchRemoveList(input, matcher1, [matcher2, […, matcherN]])
+
+The same as `matchRemove()` but result `AST-tree` after `matcher1` passing to `matcher2`, result of this to `matcher3` and so on. Return `AST-tree` without all the matched `AST-nodes`.
+
+##### input
+
+Type: `string` / `AST`
+
+##### matcher1, matcher2, …, matcherN
+
+Type: `function`. Receive: `AST-node, event`
+
+In most cases you need only `AST-node` to match on.
 
 [commonmark]: https://github.com/jgm/commonmark.js#usage
 
