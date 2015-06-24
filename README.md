@@ -152,16 +152,16 @@ const isBreak = node => isHardbreak(node) || isSoftbreak(node);
 MIT © [Vladimir Starkov](https://iamstarkov.com/)
 
 [npm-url]: https://npmjs.org/package/commonmark-helpers
-[npm-image]: https://img.shields.io/npm/v/commonmark-helpers.svg
+[npm-image]: https://img.shields.io/npm/v/commonmark-helpers.svg?style=flat-square
 
 [travis-url]: https://travis-ci.org/iamstarkov/commonmark-helpers
-[travis-image]: https://img.shields.io/travis/iamstarkov/commonmark-helpers.svg
+[travis-image]: https://img.shields.io/travis/iamstarkov/commonmark-helpers.svg?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/iamstarkov/commonmark-helpers
-[coveralls-image]: https://img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg
+[coveralls-image]: https://img.shields.io/coveralls/iamstarkov/commonmark-helpers.svg?style=flat-square
 
 [depstat-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-image]: https://david-dm.org/iamstarkov/commonmark-helpers.svg
+[depstat-image]: https://david-dm.org/iamstarkov/commonmark-helpers.svg?style=flat-square
 
 [depstat-dev-url]: https://david-dm.org/iamstarkov/commonmark-helpers
-[depstat-dev-image]: https://david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg
+[depstat-dev-image]: https://david-dm.org/iamstarkov/commonmark-helpers/dev-status.svg?style=flat-square
