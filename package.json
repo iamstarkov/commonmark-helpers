@@ -36,6 +36,7 @@
     "mocha-lcov-reporter": "0.0.2"
   },
   "dependencies": {
-    "commonmark": "^0.20.0"
+    "commonmark": "^0.20.0",
+    "ramda": "^0.15.1"
   }
 }
