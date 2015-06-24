@@ -1,7 +1,8 @@
 import {
-  text, html, match, matchRemove,
+  text, html, match, matchRemove, matchRemoveList,
   isHeader, isLevel, isParagraph, isBlockQuote, isImage } from './index';
 import { equal, deepEqual } from 'assert';
+import { partialRight } from 'ramda';
 
 const input = `
 # title
@@ -64,5 +65,13 @@ BlockQuote italic
 });
 
 it('matchRemove', ()=> {
-  equal(html(matchRemove(`# asd\n\ntext`, isHeader)), `<p>text</p>\n`);
+  equal(text(matchRemove(`# asd\n\ntext`, isHeader)), `text`);
+});
+
+it('matchRemoveList simple', ()=> {
+  equal(text(matchRemoveList(`# asd\n\ntext`, isHeader)), `text`);
+});
+
+it('matchRemoveList double', ()=> {
+  equal(text(matchRemoveList(`# asd\n\n## double\n\ntext`, i => isLevel(i, 1), i => isLevel(i, 2))), `text`);
 });

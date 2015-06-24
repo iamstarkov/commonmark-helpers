@@ -1,4 +1,6 @@
 import commonmark from 'commonmark';
+import { apply, compose, map, partialRight } from 'ramda';
+
 
 const ast = (input) => {
   return (typeof input === 'string')
@@ -25,6 +27,8 @@ const matchRemove = (input, matcher) => {
   }
   return tree;
 }
+
+const matchRemoveList = (input, ...matchers) =>apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
 
 const html = (input) => {
   if (!input) return;
@@ -72,7 +76,8 @@ const isBreak = node => isHardbreak(node) || isSoftbreak(node);
 
 export default {
   // helpers
-  ast, match, matchRemove, html, text,
+  ast, html, text,
+  match, matchRemove, matchRemoveList,
 
   // shortcuts
   isType, isText, isEmph, isCode, isHtml, isLink, isItem, isList, isImage,
