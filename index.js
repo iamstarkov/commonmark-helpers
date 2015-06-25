@@ -28,6 +28,15 @@ const matchRemove = (input, matcher) => {
   return tree;
 }
 
+const matchProcess = (input, processor) => {
+  if (!input) return;
+  var tree = ast(input);
+  var walker = tree.walker();
+  var event;
+  while (event = walker.next()) { processor(event.node, event); }
+  return tree;
+}
+
 const matchRemoveList = (input, ...matchers) =>apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
 
 const html = (input) => {
@@ -78,6 +87,8 @@ export default {
   // helpers
   ast, html, text,
   match, matchRemove, matchRemoveList,
+  matchProcess,
+
 
   // shortcuts
   isType, isText, isEmph, isCode, isHtml, isLink, isItem, isList, isImage,

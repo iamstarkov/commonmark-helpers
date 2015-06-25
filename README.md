@@ -34,6 +34,14 @@ var md = require('commonmark-helpers');
 md.text(md.match('# title\n\ntext', md.isHeader)); // title
 md.html(`*italic*`);        // <p><em>italic</em></p>\n
 md.text('**`plaintext`**'); // plaintext
+
+function up(node) {
+  if (node.literal) {
+    node.literal = node.literal.toUpperCase();
+  }
+};
+
+md.text(md.matchProcess('# LOOK\n\nMA', up)); // LOOK\n\nMA
 ```
 
 [Look into tests for more examples](tests).
@@ -109,6 +117,20 @@ Type: `function`. Receive: `AST-node, event`
 In most cases you need only `AST-node` to match on.
 
 [commonmark]: https://github.com/jgm/commonmark.js#usage
+
+### matchProcess(input, processor)
+
+Match and process `AST-nodes`, return modified AST-tree.
+
+##### input
+
+Type: `string` / `AST`
+
+##### processor
+
+Type: `function`. Receive: `AST-node, event`
+
+In most cases you need only `AST-node` to match on and modify.
 
 ### Bunch of shortcut helpers
 

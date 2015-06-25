@@ -1,8 +1,7 @@
 import {
-  text, html, match, matchRemove, matchRemoveList,
+  text, html, match, matchRemove, matchRemoveList, matchProcess,
   isHeader, isLevel, isParagraph, isBlockQuote, isImage } from './index';
 import { equal, deepEqual } from 'assert';
-import { partialRight } from 'ramda';
 
 const input = `
 # title
@@ -74,4 +73,31 @@ it('matchRemoveList simple', ()=> {
 
 it('matchRemoveList double', ()=> {
   equal(text(matchRemoveList(`# asd\n\n## double\n\ntext`, i => isLevel(i, 1), i => isLevel(i, 2))), `text`);
+});
+
+it('matchProcess', ()=> {
+  const up = node => {
+    if (node.literal) {
+      node.literal = node.literal.toUpperCase();
+    }
+  }
+  equal(text(matchProcess(`# wat\n\ntext`, up)), `WAT\n\nTEXT`);
+});
+
+it('matchProcess semi-complicated', ()=> {
+  const t2tt = node => {
+    if (node.literal) {
+      node.literal = node.literal.split('').map(i => i === 't' ? 'tt' : i).join('');
+    }
+  }
+});
+
+it('matchProcess complicated', ()=> {
+  const procHeaders = (deeper, node) => {
+    if (isHeader(node)) { matchProcess(node, deeper) }
+  }
+  const up = (node) => {
+    if (node.literal) { node.literal = node.literal.toUpperCase(); }
+  };
+  equal(text(matchProcess(`# asd\n\ntext`, procHeaders.bind(null, up))), `ASD\n\ntext`);
 });
