@@ -1,6 +1,6 @@
 import {
-  text, html, match, matchRemove, matchRemoveList, matchProcess,
-  isHeader, isLevel, isParagraph, isBlockQuote, isImage } from './index';
+  text, html, match, matchRemove, matchRemoveList, matchProcess, matchProcessList,
+  isHeader, isLevel, isParagraph, isBlockQuote, isImage, isEmph, isStrong } from './index';
 import { equal, deepEqual } from 'assert';
 
 const input = `
@@ -100,4 +100,18 @@ it('matchProcess complicated', ()=> {
     if (node.literal) { node.literal = node.literal.toUpperCase(); }
   };
   equal(text(matchProcess(`# asd\n\ntext`, procHeaders.bind(null, up))), `ASD\n\ntext`);
+});
+
+
+it('matchProcessList', ()=> {
+  const up = (node) => {
+    if (node.literal) { node.literal = node.literal.toUpperCase(); }
+  };
+  const procEmph = (deeper, node) => {
+    if (isEmph(node)) { matchProcess(node, deeper) }
+  }
+  const procStrong = (deeper, node) => {
+    if (isStrong(node)) { matchProcess(node, deeper) }
+  }
+  equal(text(matchProcessList(`_emph_ and **strong**`, procEmph.bind(null, up), procStrong.bind(null, up))), `EMPH and STRONG`);
 });

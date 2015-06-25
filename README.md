@@ -104,7 +104,7 @@ In most cases you need only `AST-node` to match on.
 
 ### matchRemoveList(input, matcher1, [matcher2, […, matcherN]])
 
-The same as `matchRemove()` but result `AST-tree` after `matcher1` passing to `matcher2`, result of this to `matcher3` and so on. Return `AST-tree` without all the matched `AST-nodes`.
+The same as `matchRemove()` but resulting `AST-tree` after `matcher1` passing to `matcher2`, result of this to `matcher3` and so on. Return `AST-tree` without all the matched `AST-nodes`.
 
 ##### input
 
@@ -116,8 +116,6 @@ Type: `function`. Receive: `AST-node, event`
 
 In most cases you need only `AST-node` to match on.
 
-[commonmark]: https://github.com/jgm/commonmark.js#usage
-
 ### matchProcess(input, processor)
 
 Match and process `AST-nodes`, return modified AST-tree.
@@ -127,6 +125,20 @@ Match and process `AST-nodes`, return modified AST-tree.
 Type: `string` / `AST`
 
 ##### processor
+
+Type: `function`. Receive: `AST-node, event`
+
+In most cases you need only `AST-node` to match on and modify.
+
+### matchProcessList(input, processor1, [processor2, […, processorN]])
+
+The same as `matchProcess()` but resulting `AST-tree` after `processor1` passing to `processor2`, result of this to `processor3` and so on. Return `AST-tree` is `AST-tree` with all applied processors.
+
+##### input
+
+Type: `string` / `AST`
+
+##### processor1, processor2, …, processorN
 
 Type: `function`. Receive: `AST-node, event`
 

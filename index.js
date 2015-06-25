@@ -38,6 +38,7 @@ const matchProcess = (input, processor) => {
 }
 
 const matchRemoveList = (input, ...matchers) =>apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
+const matchProcessList = (input, ...processors) => apply(compose, map(item => partialRight(matchProcess, item), processors))(input);
 
 const html = (input) => {
   if (!input) return;
@@ -87,7 +88,7 @@ export default {
   // helpers
   ast, html, text,
   match, matchRemove, matchRemoveList,
-  matchProcess,
+  matchProcess, matchProcessList,
 
 
   // shortcuts
