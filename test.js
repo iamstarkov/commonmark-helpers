@@ -115,3 +115,13 @@ it('matchProcessList', ()=> {
   }
   equal(text(matchProcessList(`_emph_ and **strong**`, procEmph.bind(null, up), procStrong.bind(null, up))), `EMPH and STRONG`);
 });
+
+it('flexible AST', ()=> {
+  const input = '# yay yay';
+  const addId = (node) => {
+    if (isHeader(node)) {
+      node.id = text(node).replace(/\s/gim, '-').toLowerCase();
+    }
+  };
+  equal(match(matchProcess(input, addId), isHeader).id, 'yay-yay');
+});
