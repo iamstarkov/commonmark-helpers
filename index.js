@@ -2,11 +2,10 @@ import commonmark from 'commonmark';
 import { apply, compose, map, partialRight } from 'ramda';
 
 
-const ast = (input) => {
-  return (typeof input === 'string')
+const ast = input =>
+  typeof input === 'string'
     ? new commonmark.Parser().parse(input)
     : input;
-}
 
 const match = (input, matcher) => {
   if (!input) return;
@@ -37,8 +36,15 @@ const matchProcess = (input, processor) => {
   return tree;
 }
 
-const matchRemoveList = (input, ...matchers) =>apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
-const matchProcessList = (input, ...processors) => apply(compose, map(item => partialRight(matchProcess, item), processors))(input);
+const matchRemoveList = (input, ...matchers) =>
+  matchers.length === 0
+    ? ast(input)
+    : apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
+
+const matchProcessList = (input, ...processors) =>
+  matchers.length === 0
+    ? ast(input)
+    : apply(compose, map(item => partialRight(matchProcess, item), processors))(input);
 
 const html = (input) => {
   if (!input) return;
@@ -87,6 +93,8 @@ const isBreak = node => isHardbreak(node) || isSoftbreak(node);
 export default {
   // helpers
   ast, html, text,
+
+  // matchers
   match, matchRemove, matchRemoveList,
   matchProcess, matchProcessList,
 
