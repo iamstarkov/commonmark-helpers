@@ -42,7 +42,7 @@ const matchRemoveList = (input, ...matchers) =>
     : apply(compose, map(item => partialRight(matchRemove, item), matchers))(input);
 
 const matchProcessList = (input, ...processors) =>
-  matchers.length === 0
+  processors.length === 0
     ? ast(input)
     : apply(compose, map(item => partialRight(matchProcess, item), processors))(input);
 
