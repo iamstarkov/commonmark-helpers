@@ -1,5 +1,7 @@
 # commonmark-helpers
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/iamstarkov/commonmark-helpers.svg)](https://greenkeeper.io/)
+
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coveralls Status][coveralls-image]][coveralls-url]
